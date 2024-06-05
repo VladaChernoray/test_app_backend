@@ -72,3 +72,7 @@ app.post('/web-data', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
+
+app.use(cors({
+  origin: 'https://test-app-frontend.netlify.app'
+}));
