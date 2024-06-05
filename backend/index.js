@@ -51,23 +51,24 @@ bot.on('message', async (msg) => {
 app.post('/web-data', async (req, res) => {
   const { queryID, products, totalPrice } = req.body;
   try {
-    await bot.answerWebAppQuery(queryID, {
-      type: 'article',
-      id: queryID,
-      title: "Successful purchase",
-      input_message_content: { message_text: "You purchase goods for the amount: " + totalPrice }
-    });
-    res.status(200).send('Query answered successfully');
+      await bot.answerWebAppQuery(queryID, {
+          type: 'article',
+          id: queryID,
+          title: "Successful purchase",
+          input_message_content: { message_text: "You purchase goods for the amount: " + totalPrice }
+      });
+      res.status(200).send('Query answered successfully');
   } catch (e) {
-    await bot.answerWebAppQuery(queryID, {
-      type: 'article',
-      id: queryID,
-      title: "Failed to purchase item",
-      input_message_content: { message_text: "Failed to purchase item" }
-    });
-    res.status(500).send('Failed to answer query');
+      await bot.answerWebAppQuery(queryID, {
+          type: 'article',
+          id: queryID,
+          title: "Failed to purchase item",
+          input_message_content: { message_text: "Failed to purchase item" }
+      });
+      res.status(500).send('Failed to answer query');
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
