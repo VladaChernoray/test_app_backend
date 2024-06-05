@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const TelegramBot = require('node-telegram-bot-api');
 
-const token = process.env.TELEGRAM_BOT_TOKEN; 
+const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(cors({
   origin: 'https://main--test-app-frontend.netlify.app'
 }));
+
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
