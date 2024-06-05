@@ -1,11 +1,10 @@
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
+const TelegramBot = require('node-telegram-bot-api');
 
-const webAppUrl = 'https://main--test-app-frontend.netlify.app';
-
+const token = process.env.TELEGRAM_BOT_TOKEN; 
 const bot = new TelegramBot(token, { polling: true });
+
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -14,7 +13,7 @@ app.use(cors({
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
-  const resp = match[1]; 
+  const resp = match[1];
   bot.sendMessage(chatId, resp);
 });
 
@@ -26,8 +25,8 @@ bot.on('message', async (msg) => {
     await bot.sendMessage(chatId, "Choose option:", {
       reply_markup: {
         inline_keyboard: [
-          [{ text: "Cart", web_app: { url: webAppUrl + '/product_list' } }],
-          [{ text: "Form", web_app: { url: webAppUrl + '/form' } }]
+          [{ text: "Cart", web_app: { url: 'https://main--test-app-frontend.netlify.app/product_list' } }],
+          [{ text: "Form", web_app: { url: 'https://main--test-app-frontend.netlify.app/form' } }]
         ],
       },
     });
@@ -40,7 +39,7 @@ bot.on('message', async (msg) => {
       await bot.sendMessage(chatId, "Your street is: " + data?.street);
 
       setTimeout(async () => {
-        await bot.sendMessage(chatId, "All info you receive in chat.");  
+        await bot.sendMessage(chatId, "All info you receive in chat.");
       }, 3000);
     } catch (e) {
       console.log(e);
