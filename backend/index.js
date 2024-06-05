@@ -50,6 +50,7 @@ bot.on('message', async (msg) => {
 });
 
 app.post('/web-data', async (req, res) => {
+  console.log('Received request:', req.body); // Логування запиту
   const { queryID, products, totalPrice } = req.body;
   try {
     await bot.answerWebAppQuery(queryID, {
